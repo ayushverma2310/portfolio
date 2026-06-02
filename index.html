@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Prateeshtha Sinha — AI Video Creator</title>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=Outfit:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#060612;--bg2:#0e0e1e;--pink:#FF2D78;--blue:#00B4FF;--green:#00FF87;--yellow:#FFE500;--purple:#B44DFF;--text:#F0EEF8;--muted:#8884A8;--border:rgba(255,255,255,0.08)}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--text);font-family:'Outfit',sans-serif;font-weight:400;overflow-x:hidden}
+nav{position:fixed;top:0;left:0;right:0;z-index:100;padding:1rem 2rem;display:flex;justify-content:space-between;align-items:center;background:rgba(6,6,18,0.88);backdrop-filter:blur(14px);border-bottom:1px solid var(--border)}
+.nav-logo{font-family:'Syne',sans-serif;font-weight:800;font-size:1.1rem;background:linear-gradient(90deg,var(--pink),var(--purple),var(--blue));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.nav-links{display:flex;gap:1.75rem;list-style:none}
+.nav-links a{color:var(--muted);text-decoration:none;font-size:0.87rem;font-weight:500;transition:color 0.2s}
+.nav-links a:hover{color:var(--text)}
+.hero{min-height:100vh;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;padding:6rem 2rem 4rem;position:relative;overflow:hidden}
+.orb{position:absolute;border-radius:50%;filter:blur(90px);pointer-events:none;opacity:0.33}
+.orb1{width:520px;height:520px;background:var(--pink);top:-160px;left:-160px}
+.orb2{width:400px;height:400px;background:var(--blue);bottom:-90px;right:-90px}
+.orb3{width:320px;height:320px;background:var(--purple);top:38%;left:52%}
+.hero-badge{display:inline-flex;align-items:center;gap:8px;background:rgba(255,45,120,0.12);border:1px solid rgba(255,45,120,0.3);color:var(--pink);font-size:0.77rem;font-weight:500;padding:0.4rem 1.1rem;border-radius:100px;margin-bottom:1.75rem;letter-spacing:0.07em;text-transform:uppercase;animation:fadeUp 0.6s 0.1s both}
+.hero-badge::before{content:'';width:6px;height:6px;background:var(--pink);border-radius:50%;animation:blink 1.5s infinite}
+@keyframes blink{0%,100%{opacity:1}50%{opacity:0.15}}
+.hero-name{font-family:'Syne',sans-serif;font-size:clamp(3rem,9vw,7rem);font-weight:800;line-height:1;background:linear-gradient(135deg,#fff 0%,#d0c8ff 35%,var(--pink) 65%,var(--yellow) 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;margin-bottom:1.25rem;letter-spacing:-0.03em;animation:fadeUp 0.7s 0.2s both}
+.hero-tag{font-size:clamp(1rem,2.5vw,1.3rem);color:var(--muted);max-width:540px;line-height:1.65;margin-bottom:2.5rem;font-weight:300;animation:fadeUp 0.7s 0.35s both}
+.hero-tag span{color:var(--text);font-weight:500}
+.hero-cta{display:flex;gap:1rem;flex-wrap:wrap;justify-content:center;animation:fadeUp 0.7s 0.5s both}
+.btn-p{background:linear-gradient(135deg,var(--pink),var(--purple));color:#fff;border:none;padding:0.85rem 2.25rem;border-radius:100px;font-family:'Outfit',sans-serif;font-size:0.95rem;font-weight:500;text-decoration:none;transition:opacity 0.2s,transform 0.2s;display:inline-block}
+.btn-p:hover{opacity:0.84;transform:translateY(-2px)}
+.btn-o{background:transparent;color:var(--text);border:1px solid var(--border);padding:0.85rem 2.25rem;border-radius:100px;font-family:'Outfit',sans-serif;font-size:0.95rem;font-weight:500;text-decoration:none;transition:border-color 0.2s,transform 0.2s;display:inline-block}
+.btn-o:hover{border-color:rgba(255,255,255,0.28);transform:translateY(-2px)}
+.scroll-hint{position:absolute;bottom:2rem;left:50%;transform:translateX(-50%);color:var(--muted);font-size:0.7rem;letter-spacing:0.12em;text-transform:uppercase;animation:nudge 2.2s infinite;display:flex;flex-direction:column;align-items:center;gap:6px}
+@keyframes nudge{0%,100%{transform:translateX(-50%) translateY(0)}50%{transform:translateX(-50%) translateY(7px)}}
+@keyframes fadeUp{from{opacity:0;transform:translateY(22px)}to{opacity:1;transform:translateY(0)}}
+section{padding:5.5rem 2rem;max-width:1140px;margin:0 auto}
+.stag{display:inline-block;font-size:0.7rem;font-weight:600;letter-spacing:0.18em;text-transform:uppercase;color:var(--pink);margin-bottom:0.6rem}
+.stitle{font-family:'Syne',sans-serif;font-size:clamp(2rem,4.5vw,3rem);font-weight:800;color:var(--text);margin-bottom:0.4rem;line-height:1.1;letter-spacing:-0.025em}
+.ssub{color:var(--muted);font-size:0.97rem;margin-bottom:2.75rem;font-weight:300;line-height:1.6}
+.skills-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(175px,1fr));gap:1rem}
+.skill-card{background:var(--bg2);border:1px solid var(--border);border-radius:18px;padding:1.2rem 1.5rem;display:flex;align-items:center;gap:12px;transition:border-color 0.25s,transform 0.25s}
+.skill-card:hover{transform:translateY(-5px)}
+.s1:hover{border-color:var(--pink)}.s2:hover{border-color:var(--blue)}.s3:hover{border-color:var(--green)}.s4:hover{border-color:var(--yellow)}.s5:hover{border-color:var(--purple)}.s6:hover{border-color:#FF8C00}
+.sdot{width:10px;height:10px;border-radius:50%;flex-shrink:0}
+.sname{font-family:'Syne',sans-serif;font-weight:700;font-size:0.93rem;color:var(--text)}
+.stype{font-size:0.7rem;color:var(--muted);margin-top:2px}
+.projects-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:1.25rem}
+.pcard{background:var(--bg2);border:1px solid var(--border);border-radius:18px;overflow:hidden;transition:border-color 0.25s,transform 0.25s}
+.pcard:hover{border-color:rgba(255,45,120,0.42);transform:translateY(-5px)}
+.vwrap{position:relative;width:100%;padding-top:56.25%;background:#111}
+.vwrap.short{padding-top:177.78%}
+.vwrap iframe{position:absolute;top:0;left:0;width:100%;height:100%;border:none}
+.pinfo{padding:1rem 1.25rem 1.25rem}
+.plabel{font-size:0.68rem;font-weight:600;letter-spacing:0.12em;text-transform:uppercase;color:var(--pink);margin-bottom:4px}
+.ptitle{font-family:'Syne',sans-serif;font-weight:700;font-size:0.93rem;color:var(--text)}
+.ig-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:1.25rem}
+.ig-card{background:var(--bg2);border:1px solid var(--border);border-radius:20px;padding:1.75rem;text-decoration:none;color:var(--text);display:flex;align-items:flex-start;gap:1rem;transition:border-color 0.25s,transform 0.25s}
+.ig-card:hover{border-color:rgba(255,45,120,0.5);transform:translateY(-5px)}
+.ig-icon{width:52px;height:52px;border-radius:14px;background:linear-gradient(135deg,#f09433 0%,#e6683c 25%,#dc2743 50%,#cc2366 75%,#bc1888 100%);display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:1.5rem}
+.ig-handle{font-family:'Syne',sans-serif;font-weight:700;font-size:0.95rem;color:var(--text);margin-bottom:6px}
+.ig-desc{font-size:0.81rem;color:var(--muted);line-height:1.6}
+.ig-link{font-size:0.77rem;color:var(--pink);margin-top:10px;font-weight:500}
+.resume-wrap{background:var(--bg2);border:1px solid var(--border);border-radius:20px;padding:2.75rem;display:grid;grid-template-columns:1fr 1.4fr;gap:3rem}
+.rlabel{font-size:0.7rem;font-weight:700;text-transform:uppercase;letter-spacing:0.14em;color:var(--pink);margin-bottom:1rem}
+.rname{font-family:'Syne',sans-serif;font-size:2rem;font-weight:800;color:var(--text);line-height:1.1;margin-bottom:0.4rem}
+.rrole{color:var(--muted);font-size:0.9rem;margin-bottom:1.5rem;font-weight:300}
+.rinfo{display:flex;align-items:center;gap:8px;color:var(--muted);font-size:0.83rem;margin-bottom:7px}
+.rinfo span{color:var(--text)}
+.rtag{display:inline-block;background:rgba(180,77,255,0.12);border:1px solid rgba(180,77,255,0.22);color:var(--purple);font-size:0.72rem;padding:4px 10px;border-radius:100px;margin:3px;font-weight:500}
+.titem{border-left:2px solid var(--border);padding-left:1.1rem;margin-bottom:1.5rem;position:relative}
+.titem::before{content:'';position:absolute;left:-5px;top:7px;width:8px;height:8px;background:var(--pink);border-radius:50%}
+.ttitle{font-family:'Syne',sans-serif;font-weight:700;font-size:0.93rem;color:var(--text)}
+.tsub{font-size:0.77rem;color:var(--muted);margin-top:2px}
+.tdesc{font-size:0.81rem;color:var(--muted);margin-top:6px;line-height:1.55}
+.contact-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:1rem}
+.ccard{background:var(--bg2);border:1px solid var(--border);border-radius:16px;padding:1.4rem;text-decoration:none;color:var(--text);display:flex;align-items:center;gap:1rem;transition:border-color 0.25s,transform 0.25s}
+.ccard:hover{border-color:rgba(255,255,255,0.2);transform:translateY(-3px)}
+.cicon{width:46px;height:46px;border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:1.3rem;flex-shrink:0}
+.clabel{font-size:0.7rem;color:var(--muted);margin-bottom:4px;text-transform:uppercase;letter-spacing:0.08em;font-weight:500}
+.cval{font-family:'Syne',sans-serif;font-weight:600;font-size:0.83rem;color:var(--text);word-break:break-all}
+.divider{height:1px;background:var(--border)}
+footer{border-top:1px solid var(--border);padding:2.5rem 2rem;text-align:center}
+.fname{font-family:'Syne',sans-serif;font-weight:800;font-size:2rem;background:linear-gradient(90deg,var(--pink),var(--purple),var(--blue));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;margin-bottom:0.6rem}
+@media(max-width:680px){.resume-wrap{grid-template-columns:1fr;gap:2rem;padding:1.75rem}.nav-links{gap:1rem}.nav-links a{font-size:0.78rem}section{padding:4rem 1.25rem}}
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-logo">PS</div>
+  <ul class="nav-links">
+    <li><a href="#skills">Skills</a></li>
+    <li><a href="#work">Work</a></li>
+    <li><a href="#pages">Pages</a></li>
+    <li><a href="#resume">Resume</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+</nav>
+
+<div class="hero">
+  <div class="orb orb1"></div>
+  <div class="orb orb2"></div>
+  <div class="orb orb3"></div>
+  <div class="hero-badge">AI Video Creator · Delhi, India</div>
+  <h1 class="hero-name">Prateeshtha<br>Sinha</h1>
+  <p class="hero-tag">Bringing <span>imagination to life</span>, one AI frame at a time.<br>Cinematic stories crafted with the world's most powerful AI tools.</p>
+  <div class="hero-cta">
+    <a href="#work" class="btn-p">View My Work</a>
+    <a href="#contact" class="btn-o">Get In Touch</a>
+  </div>
+  <div class="scroll-hint">
+    <span>Scroll</span>
+    <svg width="14" height="18" viewBox="0 0 14 18" fill="none"><path d="M7 2v12M2 10l5 5 5-5" stroke="#8884A8" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+  </div>
+</div>
+
+<div class="divider"></div>
+
+<section id="skills">
+  <p class="stag">My Toolkit</p>
+  <h2 class="stitle">AI Tools I Master</h2>
+  <p class="ssub">Pushing the boundaries of AI-generated video with the most advanced creative tools available today.</p>
+  <div class="skills-grid">
+    <div class="skill-card s1"><div class="sdot" style="background:var(--pink)"></div><div><div class="sname">Kling AI</div><div class="stype">Video Generation</div></div></div>
+    <div class="skill-card s2"><div class="sdot" style="background:var(--blue)"></div><div><div class="sname">Higgsfield</div><div class="stype">Cinematic AI</div></div></div>
+    <div class="skill-card s3"><div class="sdot" style="background:var(--green)"></div><div><div class="sname">Seedance</div><div class="stype">Motion AI</div></div></div>
+    <div class="skill-card s4"><div class="sdot" style="background:var(--yellow)"></div><div><div class="sname">Veo 3</div><div class="stype">Google Video AI</div></div></div>
+    <div class="skill-card s5"><div class="sdot" style="background:var(--purple)"></div><div><div class="sname">Runway</div><div class="stype">Gen-3 Video AI</div></div></div>
+    <div class="skill-card s6"><div class="sdot" style="background:#FF8C00"></div><div><div class="sname">Storytelling</div><div class="stype">Creative Direction</div></div></div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<section id="work">
+  <p class="stag">Featured Work</p>
+  <h2 class="stitle">AI Video Projects</h2>
+  <p class="ssub">14 AI-crafted videos — cinematic shorts, immersive reels, and bold visual stories.</p>
+  <div class="projects-grid">
+
+    <div class="pcard">
+      <div class="vwrap short"><iframe src="https://www.youtube.com/embed/B8NqwlajhTo" allow="accelerometer;autoplay;clipboard-write;encrypted-media;gyroscope;picture-in-picture" allowfullscreen loading="lazy"></iframe></div>
+      <div class="pinfo"><p class="plabel">AI Short</p><p class="ptitle">AI Creation #1</p></div>
+    </div>
+    <div class="pcard">
+      <div class="vwrap short"><iframe src="https://www.youtube.com/embed/B59RkNcjcwQ" allow="accelerometer;autoplay;clipboard-write;encrypted-media;gyroscope;picture-in-picture" allowfullscreen loading="lazy"></iframe></div>
+      <div class="pinfo"><p class="plabel">AI Short</p><p class="ptitle">AI Creation #2</p></div>
+    </div>
+    <div class="pcard">
+      <div class="vwrap"><iframe src="https://www.youtube.com/embed/mg8w6k4lMvY" allow="accelerometer;autoplay;clipboard-write;encrypted-media;gyroscope;picture-in-picture" allowfullscreen loading="lazy"></iframe></div>
+      <div class="pinfo"><p class="plabel">AI Video</p><p class="ptitle">Cinematic Reel #1</p></div>
+    </div>
+    <div class="pcard">
+      <div class="vwrap"><iframe src="https://www.youtube.com/embed/IoLxcV8K1GA" allow="accelerometer;autoplay;clipboard-write;encrypted-media;gyroscope;picture-in-picture" allowfullscreen loading="lazy"></iframe></div>
+      <div class="pinfo"><p class="plabel">AI Video</p><p class="ptitle">Cinematic Reel #2</p></div>
+    </div>
+    <div class="pcard">
+      <div class="vwrap"><iframe src="https://www.youtube.com/embed/Y1DOoqsPnW0" allow="accelerometer;autoplay;clipboard-write;encrypted-media;gyroscope;picture-in-picture" allowfullscreen loading="lazy"></iframe></div>
+      <div class="pinfo"><p class="plabel">AI Video</p><p class="ptitle">Cinematic Reel #3</p></div>
+    </div>
+    <div class="pcard">
+      <div class="vwrap"><iframe src="https://www.youtube.com/embed/e514cNSkBMQ" allow="accelerometer;autoplay;clipboard-write;encrypted-media;gyroscope;picture-in-picture" allowfullscreen loading="lazy"></iframe></div>
+      <div class="pinfo"><p class="plabel">AI Video</p><p class="ptitle">Cinematic Reel #4</p></div>
+    </div>
+    <div class="pcard">
+      <div class="vwrap short"><iframe src="https://www.youtube.com/embed/AnugvI7tc4M" allow="accelerometer;autoplay;clipboard-write;encrypted-media;gyroscope;picture-in-picture" allowfullscreen loading="lazy"></iframe></div>
+      <div class="pinfo"><p class="plabel">AI Short</p><p class="ptitle">AI Creation #3</p></div>
+    </div>
+    <div class="pcard">
+      <div class="vwrap short"><iframe src="https://www.youtube.com/embed/ZbCnwU3Dews" allow="accelerometer;autoplay;clipboard-write;encrypted-media;gyroscope;picture-in-picture" allowfullscreen loading="lazy"></iframe></div>
+      <div class="pinfo"><p class="plabel">AI Short</p><p class="ptitle">AI Creation #4</p></div>
+    </div>
+    <div class="pcard">
+      <div class="vwrap short"><iframe src="https://www.youtube.com/embed/iNOwthDOly4" allow="accelerometer;autoplay;clipboard-write;encrypted-media;gyroscope;picture-in-picture" allowfullscreen loading="lazy"></iframe></div>
+      <div class="pinfo"><p class="plabel">AI Short</p><p class="ptitle">AI Creation #5</p></div>
+    </div>
+    <div class="pcard">
+      <div class="vwrap short"><iframe src="https://www.youtube.com/embed/MOPIfMdjUus" allow="accelerometer;autoplay;clipboard-write;encrypted-media;gyroscope;picture-in-picture" allowfullscreen loading="lazy"></iframe></div>
+      <div class="pinfo"><p class="plabel">AI Short</p><p class="ptitle">AI Creation #6</p></div>
+    </div>
+    <div class="pcard">
+      <div class="vwrap short"><iframe src="https://www.youtube.com/embed/LQCO18WQlhY" allow="accelerometer;autoplay;clipboard-write;encrypted-media;gyroscope;picture-in-picture" allowfullscreen loading="lazy"></iframe></div>
+      <div class="pinfo"><p class="plabel">AI Short</p><p class="ptitle">AI Creation #7</p></div>
+    </div>
+    <div class="pcard">
+      <div class="vwrap short"><iframe src="https://www.youtube.com/embed/sjN1Esu6Dt0" allow="accelerometer;autoplay;clipboard-write;encrypted-media;gyroscope;picture-in-picture" allowfullscreen loading="lazy"></iframe></div>
+      <div class="pinfo"><p class="plabel">AI Short</p><p class="ptitle">AI Creation #8</p></div>
+    </div>
+    <div class="pcard">
+      <div class="vwrap short"><iframe src="https://www.youtube.com/embed/BYTMuBmBsys" allow="accelerometer;autoplay;clipboard-write;encrypted-media;gyroscope;picture-in-picture" allowfullscreen loading="lazy"></iframe></div>
+      <div class="pinfo"><p class="plabel">AI Short</p><p class="ptitle">AI Creation #9</p></div>
+    </div>
+    <div class="pcard">
+      <div class="vwrap short"><iframe src="https://www.youtube.com/embed/QRyZeB5uZLY" allow="accelerometer;autoplay;clipboard-write;encrypted-media;gyroscope;picture-in-picture" allowfullscreen loading="lazy"></iframe></div>
+      <div class="pinfo"><p class="plabel">AI Short</p><p class="ptitle">AI Creation #10</p></div>
+    </div>
+
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<section id="pages">
+  <p class="stag">Social Presence</p>
+  <h2 class="stitle">Instagram Pages</h2>
+  <p class="ssub">Follow my creative worlds across different AI content verticals — mythology, studio work, and emotional storytelling.</p>
+  <div class="ig-grid">
+    <a href="https://www.instagram.com/indianmythology_ai" target="_blank" class="ig-card">
+      <div class="ig-icon">📿</div>
+      <div>
+        <div class="ig-handle">@indianmythology_ai</div>
+        <div class="ig-desc">AI-generated visuals exploring the rich world of Indian mythology, gods, and ancient epics brought to life.</div>
+        <div class="ig-link">Visit page →</div>
+      </div>
+    </a>
+    <a href="https://www.instagram.com/theblitzstudio" target="_blank" class="ig-card">
+      <div class="ig-icon">⚡</div>
+      <div>
+        <div class="ig-handle">@theblitzstudio</div>
+        <div class="ig-desc">A creative studio showcasing bold AI video experiments, cinematic reels, and next-gen visual storytelling.</div>
+        <div class="ig-link">Visit page →</div>
+      </div>
+    </a>
+    <a href="https://www.instagram.com/rasacreativehouse" target="_blank" class="ig-card">
+      <div class="ig-icon">🎨</div>
+      <div>
+        <div class="ig-handle">@rasacreativehouse</div>
+        <div class="ig-desc">A creative house blending emotion, art, and AI to produce evocative and deeply resonant video content.</div>
+        <div class="ig-link">Visit page →</div>
+      </div>
+    </a>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<section id="resume">
+  <p class="stag">Background</p>
+  <h2 class="stitle">Resume / CV</h2>
+  <p class="ssub">My journey as an AI creative — from concept to screen.</p>
+  <div class="resume-wrap">
+    <div>
+      <div class="rname">Prateeshtha<br>Sinha</div>
+      <div class="rrole">AI Video Creator · Delhi, India</div>
+      <div class="rinfo">📍 <span>Delhi, India</span></div>
+      <div class="rinfo">✉️ <span style="font-size:0.78rem">prateeshthasinha1011@gmail.com</span></div>
+      <div style="margin-top:1.75rem">
+        <div class="rlabel">Core Skills</div>
+        <div><span class="rtag">Kling AI</span><span class="rtag">Higgsfield</span><span class="rtag">Seedance</span><span class="rtag">Veo 3</span><span class="rtag">Runway</span><span class="rtag">AI Storytelling</span><span class="rtag">Video Scripting</span><span class="rtag">Creative Direction</span></div>
+      </div>
+      <div style="margin-top:1.75rem">
+        <div class="rlabel">Content Verticals</div>
+        <div>
+          <span class="rtag" style="color:var(--blue);border-color:rgba(0,180,255,0.25);background:rgba(0,180,255,0.08)">Mythology</span>
+          <span class="rtag" style="color:var(--green);border-color:rgba(0,255,135,0.25);background:rgba(0,255,135,0.08)">Cinematics</span>
+          <span class="rtag" style="color:var(--yellow);border-color:rgba(255,229,0,0.25);background:rgba(255,229,0,0.08)">Brand Films</span>
+          <span class="rtag" style="color:var(--pink);border-color:rgba(255,45,120,0.25);background:rgba(255,45,120,0.08)">Short Films</span>
+        </div>
+      </div>
+    </div>
+    <div>
+      <div class="rlabel">Experience</div>
+      <div class="titem">
+        <div class="ttitle">AI Video Creator — The Blitz Studio</div>
+        <div class="tsub">2023 – Present · Delhi, India</div>
+        <div class="tdesc">Creating cinematic AI videos and short-form content using Kling, Runway, and Veo3. Building an engaged audience across YouTube and Instagram through bold visual storytelling.</div>
+      </div>
+      <div class="titem">
+        <div class="ttitle">Content Creator — Indian Mythology AI</div>
+        <div class="tsub">2023 – Present · Independent</div>
+        <div class="tdesc">Producing AI-generated mythology-inspired visual content, retelling Indian epics through the lens of modern AI video technology.</div>
+      </div>
+      <div class="titem">
+        <div class="ttitle">Creative Director — Rasa Creative House</div>
+        <div class="tsub">2024 – Present · Delhi, India</div>
+        <div class="tdesc">Leading creative direction for an AI video brand focused on emotion-driven storytelling and high-impact brand content creation.</div>
+      </div>
+      <div style="margin-top:2rem">
+        <div class="rlabel">Focus Areas</div>
+        <div class="titem">
+          <div class="ttitle">AI Cinematics & Short Films</div>
+          <div class="tdesc">Narrative-driven AI videos with professional-grade visual quality and emotional depth.</div>
+        </div>
+        <div class="titem">
+          <div class="ttitle">Brand & Commercial Content</div>
+          <div class="tdesc">Using cutting-edge AI tools to produce high-impact marketing and brand video campaigns.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<section id="contact">
+  <p class="stag">Let's Connect</p>
+  <h2 class="stitle">Get In Touch</h2>
+  <p class="ssub">Open for collaborations, brand deals, creative projects, and exciting AI video ventures.</p>
+  <div class="contact-grid">
+    <a href="mailto:prateeshthasinha1011@gmail.com" class="ccard">
+      <div class="cicon" style="background:rgba(255,45,120,0.12)">✉️</div>
+      <div><div class="clabel">Email</div><div class="cval">prateeshthasinha1011@gmail.com</div></div>
+    </a>
+    <a href="https://www.instagram.com/theblitzstudio" target="_blank" class="ccard">
+      <div class="cicon" style="background:rgba(220,39,67,0.1)">📸</div>
+      <div><div class="clabel">Instagram</div><div class="cval">@theblitzstudio</div></div>
+    </a>
+    <a href="https://www.instagram.com/indianmythology_ai" target="_blank" class="ccard">
+      <div class="cicon" style="background:rgba(180,77,255,0.1)">🎭</div>
+      <div><div class="clabel">Instagram</div><div class="cval">@indianmythology_ai</div></div>
+    </a>
+    <a href="https://www.instagram.com/rasacreativehouse" target="_blank" class="ccard">
+      <div class="cicon" style="background:rgba(0,180,255,0.1)">🎨</div>
+      <div><div class="clabel">Instagram</div><div class="cval">@rasacreativehouse</div></div>
+    </a>
+  </div>
+</section>
+
+<footer>
+  <div class="fname">Prateeshtha Sinha</div>
+  <p style="color:var(--muted);font-size:0.85rem;margin-bottom:6px">AI Video Creator · Delhi, India</p>
+  <p style="color:var(--muted);font-size:0.75rem">© 2025 All Rights Reserved · Made with ✦ and AI</p>
+</footer>
+
+</body>
+</html>
